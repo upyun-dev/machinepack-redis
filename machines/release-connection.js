@@ -56,7 +56,7 @@ module.exports = {
     var _ = require('@sailshq/lodash');
 
     // Validate provided connection (which is actually a redis client)
-    if ( !_.isObject(inputs.connection) || !_.isFunction(inputs.connection.end) || !_.isFunction(inputs.connection.removeAllListeners) ) {
+    if ( !_.isObject(inputs.connection) || !_.isFunction(inputs.connection.disconnect) || !_.isFunction(inputs.connection.removeAllListeners) ) {
       return exits.badConnection();
     }
 
@@ -65,7 +65,7 @@ module.exports = {
 
     // Release connection.
     try {
-      inputs.connection.end(true);
+      inputs.connection.disconnect();
 
       // If necessary, we could also do the following here:
       // inputs.connection.removeAllListeners();
