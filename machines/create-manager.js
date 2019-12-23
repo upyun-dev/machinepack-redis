@@ -124,7 +124,9 @@ module.exports = {
 
     // Validate connection string (call `malformed` if invalid).
     try {
-      Url.parse(inputs.connectionString);
+      if (inputs.connectionString !== 'cluster') {
+        Url.parse(inputs.connectionString);
+      }
     } catch (e) {
       e.message =
         'Provided value (`' + inputs.connectionString + '`) is not a valid Redis connection string: ' +
